@@ -8,7 +8,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\GoogleController;
 // ================================================
 // GOOGLE OAUTH ROUTES
@@ -19,6 +18,7 @@ use App\Http\Controllers\GoogleController;
 // ================================================
 // ROUTE PUBLIK (Bisa diakses siapa saja)
 // ================================================
+use App\Http\Controllers\AdminController;
 
 Auth::routes();
 
