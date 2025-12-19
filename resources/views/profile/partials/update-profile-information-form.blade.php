@@ -1,6 +1,6 @@
 <p class="text-muted small">Perbarui informasi profil dan alamat email kamu.</p>
 
-<form id="send-verification" method="post" action="{{ route('verification.send') }}">
+{{-- <form id="send-verification" method="post" action="{{ route('verification.send') }}"> --}}
     @csrf
 </form>
 
@@ -49,7 +49,7 @@
     <div class="mb-3">
         <label for="phone" class="form-label">Nomor Telepon</label>
         <input type="tel" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror"
-            value="{{ old('phone', $user->phone) }}" placeholder="08xxxxxxxxxx">
+            {{-- value="{{ old('phone', $user->phone) }}" placeholder="08xxxxxxxxxx"> --}}
         @error('phone')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -57,14 +57,16 @@
     </div>
 
     {{-- Address --}}
-    <div class="mb-3">
+    {{-- <div class="mb-3">
         <label for="address" class="form-label">Alamat Lengkap</label>
         <textarea name="address" id="address" rows="3" class="form-control @error('address') is-invalid @enderror"
             placeholder="Alamat lengkap untuk pengiriman">{{ old('address', $user->address) }}</textarea>
         @error('address')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
-    </div>
+    </div> --}}
 
     <button type="submit" class="btn btn-primary">Simpan Informasi</button>
 </form>
+
+{{-- aktifkan baris 3, 52, dan 60-67 --}}

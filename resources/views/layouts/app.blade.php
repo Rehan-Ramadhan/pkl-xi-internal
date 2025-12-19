@@ -24,6 +24,11 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     {{-- Fonts --}}
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    
+    {{-- Bootstrap Icons --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    
 
     {{-- Assets dari Vite --}}
     {{-- app.scss: Bootstrap + custom CSS --}}
@@ -65,5 +70,3 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     =============================================================== --}}
     @stack('scripts')
 </body>
-
-</html>
