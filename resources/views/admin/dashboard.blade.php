@@ -14,15 +14,15 @@ FUNGSI: Dashboard admin dengan statistik
     {{-- Data $stats dikirim dari Admin/DashboardController --}}
     <div class="row g-4 mb-4">
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-0 shadow-sm h-100 clickable-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Pendapatan</p>
                             {{-- <h4 class="mb-0">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</h4> --}}
                         </div>
-                        <div class="bg-success bg-opacity-10 rounded p-3">
-                            <i class="bi bi-currency-dollar text-success fs-4"></i>
+                        <div class="bg-success bg-opacity-10 rounded p-2">
+                            <i class="bi bi-currency-dollar text-white fs-4"></i>
                         </div>
                     </div>
                 </div>
@@ -30,15 +30,15 @@ FUNGSI: Dashboard admin dengan statistik
         </div>
 
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-0 shadow-sm h-100 clickable-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Pesanan</p>
                             {{-- <h4 class="mb-0">{{ $stats['total_orders'] }}</h4> --}}
                         </div>
-                        <div class="bg-primary bg-opacity-10 rounded p-3">
-                            <i class="bi bi-bag text-primary fs-4"></i>
+                        <div class="bg-primary bg-opacity-10 rounded p-2">
+                            <i class="bi bi-bag text-white fs-4"></i>
                         </div>
                     </div>
                 </div>
@@ -46,15 +46,15 @@ FUNGSI: Dashboard admin dengan statistik
         </div>
 
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-0 shadow-sm h-100 clickable-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Perlu Diproses</p>
                             {{-- <h4 class="mb-0">{{ $stats['pending_orders'] }}</h4> --}}
                         </div>
-                        <div class="bg-warning bg-opacity-10 rounded p-3">
-                            <i class="bi bi-clock text-warning fs-4"></i>
+                        <div class="bg-warning bg-opacity-10 rounded p-2">
+                            <i class="bi bi-clock text-white fs-4"></i>
                         </div>
                     </div>
                 </div>
@@ -62,15 +62,15 @@ FUNGSI: Dashboard admin dengan statistik
         </div>
 
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card border-0 shadow-sm h-100 clickable-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Stok Menipis</p>
                             {{-- <h4 class="mb-0">{{ $stats['low_stock'] }}</h4> --}}
                         </div>
-                        <div class="bg-danger bg-opacity-10 rounded p-3">
-                            <i class="bi bi-exclamation-triangle text-danger fs-4"></i>
+                        <div class="bg-danger bg-opacity-10 rounded p-2">
+                            <i class="bi bi-exclamation-triangle text-white fs-4"></i>
                         </div>
                     </div>
                 </div>
@@ -149,4 +149,4 @@ FUNGSI: Dashboard admin dengan statistik
     </div>
 @endsection
 
-{{-- aktifkan baris 22, 38, 54, 70, 103-121, dan 142 --}}
+{{-- nonaktifkan dulu sementara baris 22, 38, 54, 70, 103-121, dan 142 --}}

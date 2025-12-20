@@ -7,7 +7,7 @@
         {{-- Logo & Brand --}}
         <a class="navbar-brand text-primary" href="{{ route('home') }}">
             <i class="bi bi-bag-heart-fill me-2"></i>
-            TokoOnline
+            Toko Komik
         </a>
 
         {{-- Mobile Toggle --}}
@@ -20,7 +20,8 @@
         {{-- Navbar Content --}}
         <div class="collapse navbar-collapse" id="navbarMain">
             {{-- Search Form --}}
-            <form class="d-flex mx-auto" style="max-width: 400px; width: 100%;"
+            <form {{-- class="d-flex mx-auto" style="max-width: 400px; width: 100%;" --}}
+                  class="d-flex mx-auto flex-grow-1"
                   action="{{ route('catalog.index') }}" method="GET">
                 <div class="input-group">
                     <input type="text" name="q"
