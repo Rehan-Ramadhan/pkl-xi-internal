@@ -65,7 +65,7 @@ class ProfileController extends Controller
      * Helper khusus untuk menangani logika upload avatar.
      * Mengembalikan string path file yang tersimpan.
      */
-    protected function uploadAvatar(ProfileUpdateRequest $request, $user): string
+    protected function uploadAvatar(Request $request, $user): string
     {
         // Hapus avatar lama (Garbage Collection)
         // Cek 1: Apakah user punya avatar sebelumnya?
@@ -84,6 +84,26 @@ class ProfileController extends Controller
 
         return $path;
     }
+
+    // tambahan
+    public function updateAvatar(Request $request) {
+        // 1. Validasi manual di sini (Hanya untuk foto avatar)
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $user = $request->user();
+
+            // 2. Panggil helper yang sudah kita ubah tadi
+            $path = $this->uploadAvatar($request, $user);
+
+            $user->update(['avatar' => $path]);
+            return back()->with('success', 'Foto profil berhasil diperbarui.');
+        }
+        return back()->with('error', 'Tidak ada file avatar yang diupload.');
+    }
+    // tutup tambahan
 
     /**
      * Menghapus avatar (tombol "Hapus Foto").

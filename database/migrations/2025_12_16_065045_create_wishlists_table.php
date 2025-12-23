@@ -12,10 +12,11 @@ return new class extends Migration
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
 
+            // Foreign key ke users
             $table->foreignId('user_id')
                   ->constrained()
                   ->cascadeOnDelete();
-
+            // Foreign key ke products
             $table->foreignId('product_id')
                   ->constrained()
                   ->cascadeOnDelete();

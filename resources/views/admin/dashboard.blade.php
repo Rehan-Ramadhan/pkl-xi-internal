@@ -19,7 +19,7 @@ FUNGSI: Dashboard admin dengan statistik
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Pendapatan</p>
-                            {{-- <h4 class="mb-0">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</h4> --}}
+                            <h4 class="mb-0">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</h4>
                         </div>
                         <div class="bg-success bg-opacity-10 rounded p-2">
                             <i class="bi bi-currency-dollar text-white fs-4"></i>
@@ -35,7 +35,7 @@ FUNGSI: Dashboard admin dengan statistik
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Total Pesanan</p>
-                            {{-- <h4 class="mb-0">{{ $stats['total_orders'] }}</h4> --}}
+                            <h4 class="mb-0">{{ $stats['total_orders'] }}</h4>
                         </div>
                         <div class="bg-primary bg-opacity-10 rounded p-2">
                             <i class="bi bi-bag text-white fs-4"></i>
@@ -51,7 +51,7 @@ FUNGSI: Dashboard admin dengan statistik
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Perlu Diproses</p>
-                            {{-- <h4 class="mb-0">{{ $stats['pending_orders'] }}</h4> --}}
+                            <h4 class="mb-0">{{ $stats['pending_orders'] }}</h4>
                         </div>
                         <div class="bg-warning bg-opacity-10 rounded p-2">
                             <i class="bi bi-clock text-white fs-4"></i>
@@ -67,7 +67,7 @@ FUNGSI: Dashboard admin dengan statistik
                     <div class="d-flex justify-content-between">
                         <div>
                             <p class="text-muted mb-1">Stok Menipis</p>
-                            {{-- <h4 class="mb-0">{{ $stats['low_stock'] }}</h4> --}}
+                            <h4 class="mb-0">{{ $stats['low_stock'] }}</h4>
                         </div>
                         <div class="bg-danger bg-opacity-10 rounded p-2">
                             <i class="bi bi-exclamation-triangle text-white fs-4"></i>
@@ -100,7 +100,7 @@ FUNGSI: Dashboard admin dengan statistik
                                     <th>Tanggal</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody>
+                            <tbody>
                                 @foreach($recentOrders as $order)
                                     <tr>
                                         <td>
@@ -118,7 +118,7 @@ FUNGSI: Dashboard admin dengan statistik
                                         <td>{{ $order->created_at->format('d M Y') }}</td>
                                     </tr>
                                 @endforeach
-                            </tbody> --}}
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -149,4 +149,4 @@ FUNGSI: Dashboard admin dengan statistik
     </div>
 @endsection
 
-{{-- nonaktifkan dulu sementara baris 22, 38, 54, 70, 103-121, dan 142 --}}
+{{-- nonaktifkan dulu sementara baris 142 --}}

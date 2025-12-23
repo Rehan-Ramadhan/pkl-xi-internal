@@ -5,6 +5,7 @@
 // FUNGSI: Mendefinisikan semua URL route aplikasi
 // ========================================
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 use App\Http\Controllers\Auth\GoogleController;
 
@@ -105,6 +108,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/google/unlnink', [ProfileController::class, 'unlinkGoogle'])->name('profile.google.unlink');
+    Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 
     // Tambahan profile
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.destroy');
@@ -115,13 +120,15 @@ Route::middleware('auth')->group(function () {
 // HALAMAN ADMIN (Login + Admin)
 // ================================================
 
-Route::middleware(['auth', 'admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
+        Route::middleware(['auth', 'admin'])
+            ->prefix('admin')
+            ->name('admin.')
+            ->group(function () {
 
-        // Dashboard
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        // Admin Dashboard
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        // nama route: admin.dashboard
+        // url: /admin/dashboard
 
         // Produk
         Route::resource('products', AdminProductController::class);
@@ -134,3 +141,15 @@ Route::middleware(['auth', 'admin'])
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Kategori
+    Route::resource('categories', CategoryController::class)->except(['show']); // Kategori biasanya tidak butuh show detail page
+
+    // Produk
+    Route::resource('products', ProductController::class);
+
+    // Route tambahan untuk AJAX Image Handling (jika diperlukan)
+    // ...
+});
+
