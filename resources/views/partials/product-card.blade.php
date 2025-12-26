@@ -4,7 +4,7 @@ FUNGSI: Komponen kartu produk yang reusable
 
 <div class="card product-card h-100 border-0 shadow-sm">
     {{-- Product Image --}}
-    <div class="position-relative">
+    <div class="position-relative pb-3">
         <a href="{{ route('catalog.show', $product->slug) }}">
             <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}"
                 style="height: 200px; object-fit: cover;">
@@ -19,9 +19,10 @@ FUNGSI: Komponen kartu produk yang reusable
 
         {{-- Wishlist Button --}}
         @auth
-            <button type="button" onclick="toggleWishlist({{ $product->id }})"
-                class="btn btn-light btn-sm position-absolute top-0 end-0 m-2 rounded-circle wishlist-btn-{{ $product->id }}">
-                <i class="bi {{ auth()->user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
+            <button onclick="toggleWishlist({{ $product->id }})"
+                class="wishlist-btn-{{ $product->id }} btn btn-light btn-sm rounded-circle p-2 transition">
+                <i
+                    class="bi {{ Auth::check() && Auth::user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart text-secondary' }} fs-5"></i>
             </button>
         @endauth
     </div>
