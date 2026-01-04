@@ -137,5 +137,3 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     =============================================================== --}}
     @stack('scripts')
 </body>
-
-{{-- nonaktifkan dulu sementara baris --}}
