@@ -7,7 +7,7 @@
         {{-- Logo & Brand --}}
         <a class="navbar-brand text-primary" href="{{ route('home') }}">
             <i class="bi bi-bag-heart-fill me-2"></i>
-            Toko Komik
+            SiKomart
         </a>
 
         {{-- Mobile Toggle --}}

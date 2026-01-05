@@ -21,6 +21,15 @@ class Order extends Model
         'snap_token',
     ];
 
+    /**
+     * Relasi: Order dimiliki oleh satu User
+     * Dipakai di Admin Dashboard (recent orders)
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function items()
     {
         return $this->hasMany(OrderItem::class);

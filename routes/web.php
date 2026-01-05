@@ -8,6 +8,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReportController;
 
 // ========================================
 // CONTROLLERS
@@ -26,6 +28,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\MidtransNotificationController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 
 // ================================================
@@ -143,7 +146,7 @@ Route::middleware(['auth', 'admin'])
     ->group(function () {
 
         // Admin Dashboard
-        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         // nama route: admin.dashboard
         // url: /admin/dashboard
 
@@ -158,13 +161,8 @@ Route::middleware(['auth', 'admin'])
         Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
         Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
-        // Payment Routes
-        // Route::get('/orders/{order}/pay', [PaymentController::class, 'show'])
-        //     ->name('orders.pay');
-        // Route::get('/orders/{order}/success', [PaymentController::class, 'success'])
-        //     ->name('orders.success');
-        // Route::get('/orders/{order}/pending', [PaymentController::class, 'pending'])
-        //     ->name('orders.pending');
+        Route::get('/reports/sales', [ReportController::class, 'sales'])->name('reports.sales');
+        Route::get('reports/export-sales', [ReportController::class, 'exportSales'])->name('reports.export-sales');
     });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -178,7 +176,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // ...
 });
 
-
+// Batasi 5 request per menit
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');
 
 
 // routes/web.php (HAPUS SETELAH TESTING!)

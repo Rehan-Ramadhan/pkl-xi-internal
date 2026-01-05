@@ -24,8 +24,10 @@ FUNGSI: Halaman utama website
                     </a>
                 </div>
                 <div class="col-lg-6 d-none d-lg-block text-center">
-                    {{-- <img src="{{ asset('images/hero-shopping.svg') }}" alt="Shopping" class="img-fluid"
-                        style="max-height: 400px;"> --}}
+                    <img src="../assets/img/illustrations/book.jpg"
+                        alt="Shopping"
+                        class="img-fluid rounded-circle"
+                        style="width: 300px; height: 300px; object-fit: cover;">
                 </div>
             </div>
         </div>
@@ -118,4 +120,3 @@ FUNGSI: Halaman utama website
     </section>
 @endsection
 
-{{-- aktifkan baris 27-28 --}}
