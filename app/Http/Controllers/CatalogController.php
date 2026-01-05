@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CatalogController extends Controller
 {
@@ -53,10 +54,10 @@ class CatalogController extends Controller
 
         // Menggunakan method when() untuk penulisan if-else yang lebih bersih (fungsional).
         $query->when($sort === 'price_asc', fn($q) => $q->orderBy('price', 'asc'))
-              ->when($sort === 'price_desc', fn($q) => $q->orderBy('price', 'desc'))
-              ->when($sort === 'name_asc', fn($q) => $q->orderBy('name', 'asc'))
-              ->when($sort === 'name_desc', fn($q) => $q->orderBy('name', 'desc'))
-              ->when($sort === 'newest', fn($q) => $q->latest());
+            ->when($sort === 'price_desc', fn($q) => $q->orderBy('price', 'desc'))
+            ->when($sort === 'name_asc', fn($q) => $q->orderBy('name', 'asc'))
+            ->when($sort === 'name_desc', fn($q) => $q->orderBy('name', 'desc'))
+            ->when($sort === 'newest', fn($q) => $q->latest());
 
         // 4. EXECUTE & PAGINATE
         // Jalankan query dan ambil 12 produk per halaman.
@@ -70,11 +71,18 @@ class CatalogController extends Controller
         // ->withCount(): Hitung jumlah produk available di dalamnya.
         // ->having(): Hanya ambil kategori yang PUNYA produk (minimal 1).
         // Ini mencegah user memilih kategori kosong.
-        $categories = Category::active()
-            ->withCount(['products' => fn($q) => $q->available()])
-            ->having('products_count', '>', 0)
-            ->orderBy('name')
-            ->get();
+        // $categories = Category::active()
+        //     ->withCount(['products' => fn($q) => $q->available()])
+        //     ->having('products_count', '>', 0)
+        //     ->orderBy('name')
+        //     ->get();
+        $categories = Cache::remember('global_categories', 3600, function () {
+            return Category::active()
+                ->withCount(['products' => fn($q) => $q->available()])
+                ->having('products_count', '>', 0)
+                ->orderBy('name')
+                ->get();
+        });
 
         // Hitung Range harga global untuk keperluan UI (misal slider harga minimum-maksimum).
         // selectRaw lebih efisien daripada tarik semua data lalu di loop php.

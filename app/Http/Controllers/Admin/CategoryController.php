@@ -1,11 +1,11 @@
 <?php
-// app/Http/Controllers/Admin/CategoryController.php
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -20,7 +20,7 @@ class CategoryController extends Controller
         // withCount('products'): Menghitung jumlah produk di setiap kategori.
         // Teknik ini jauh lebih efisien daripada memanggil $category->products->count() di view (N+1 Problem).
         $categories = Category::withCount('products')
-            ->latest() // Urutkan dari yang terbaru (created_at desc)
+            ->latest()      // Urutkan dari yang terbaru (created_at desc)
             ->paginate(10); // Batasi 10 item per halaman
 
         return view('admin.categories.index', compact('categories'));
@@ -34,11 +34,11 @@ class CategoryController extends Controller
         // 1. Validasi Input
         $validated = $request->validate([
             // 'unique:categories': Pastikan nama belum dipakai di tabel categories
-            'name' => 'required|string|max:100|unique:categories',
+            'name'        => 'required|string|max:100|unique:categories',
             'description' => 'nullable|string|max:500',
             // Validasi file gambar (maks 1MB)
-            'image' => 'nullable|image|max:1024',
-            'is_active' => 'boolean',
+            'image'       => 'nullable|image|max:1024',
+            'is_active'   => 'boolean',
         ]);
 
         // 2. Handle Upload Gambar (Jika ada)
@@ -57,6 +57,9 @@ class CategoryController extends Controller
         // 4. Simpan ke Database
         Category::create($validated);
 
+        // Hapus cache kategori karena ada data baru
+        Cache::forget('global_categories');
+
         return back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 
@@ -70,10 +73,10 @@ class CategoryController extends Controller
             // PENTING: Pada validasi unique saat update, kita harus mengecualikan ID kategori ini sendiri.
             // Format: unique:table,column,except_id
             // Jika tidak dikecualikan, Laravel akan menganggap nama ini duplikat (karena sudah ada di DB milik record ini sendiri).
-            'name' => 'required|string|max:100|unique:categories,name,' . $category->id,
+            'name'        => 'required|string|max:100|unique:categories,name,' . $category->id,
             'description' => 'nullable|string|max:500',
-            'image' => 'nullable|image|max:1024',
-            'is_active' => 'boolean',
+            'image'       => 'nullable|image|max:1024',
+            'is_active'   => 'boolean',
         ]);
 
         // 2. Handle Ganti Gambar
@@ -93,6 +96,9 @@ class CategoryController extends Controller
 
         // 4. Update data di database
         $category->update($validated);
+
+        // Hapus cache kategori karena data diubah
+        Cache::forget('global_categories');
 
         return back()->with('success', 'Kategori berhasil diperbarui!');
     }
@@ -117,6 +123,9 @@ class CategoryController extends Controller
 
         // 3. Hapus record dari database
         $category->delete();
+
+        // Hapus cache kategori karena data dihapus
+        Cache::forget('global_categories');
 
         return back()->with('success', 'Kategori berhasil dihapus!');
     }
