@@ -51,7 +51,7 @@
                 <div class="card-body">
                     <h6 class="fw-bold mb-3">Update Status Order</h6>
                     <form 
-                    {{-- action="{{ route('admin.orders.update-status', $order) }}" --}}
+                    action="{{ route('admin.orders.updateStatus', $order) }}"
                      method="POST">
                         @csrf
                         @method('PATCH')
@@ -86,5 +86,3 @@
         </div>
     </div>
 @endsection
-
-{{-- nonaktifkan dulu sementara baris 54 --}}

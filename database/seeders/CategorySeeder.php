@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Category;
@@ -9,42 +8,67 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
+        // ========================
+        // DAFTAR KATEGORI TOKO KOMIK
+        // Maksimal 6 kategori
+        // Semua kategori dipakai minimal 1 produk
+        // Fokus utama: Lookism & Questism
+        // ========================
+
         $categories = [
+
+            // MANHWA KOREA
             [
-                'name' => 'Elektronik',
-                'slug' => 'elektronik',
-                'description' => 'Perangkat elektronik seperti smartphone, laptop, dan gadget lainnya',
-                'is_active' => true,
+                'name'        => 'Manhwa Korea',
+                'slug'        => 'manhwa-korea',
+                'image'       => 'categories/manhwa-korea.jpg',
+                'description' => 'Komik Korea berwarna dengan cerita aksi, drama sekolah, dan sistem seperti Lookism dan Questism.',
+                'is_active'   => true,
             ],
+
+            // MANGA JEPANG
             [
-                'name' => 'Fashion Pria',
-                'slug' => 'fashion-pria',
-                'description' => 'Pakaian, sepatu, dan aksesoris untuk pria',
-                'is_active' => true,
+                'name'        => 'Manga Jepang',
+                'slug'        => 'manga-jepang',
+                'image'       => 'categories/manga-jepang.jpg',
+                'description' => 'Komik asli Jepang seperti One Piece, Naruto, Attack on Titan, dan Jujutsu Kaisen.',
+                'is_active'   => true,
             ],
+
+            // MANHUA CHINA
             [
-                'name' => 'Fashion Wanita',
-                'slug' => 'fashion-wanita',
-                'description' => 'Pakaian, sepatu, dan aksesoris untuk wanita',
-                'is_active' => true,
+                'name'        => 'Manhua China',
+                'slug'        => 'manhua-china',
+                'image'       => 'categories/manhua-china.jpg',
+                'description' => 'Komik asal Tiongkok dengan tema kultivasi, game, dan dunia fantasi.',
+                'is_active'   => true,
             ],
+
+            // KOMIK BARAT
             [
-                'name' => 'Makanan & Minuman',
-                'slug' => 'makanan-minuman',
-                'description' => 'Berbagai makanan ringan, minuman, dan bahan makanan',
-                'is_active' => true,
+                'name'        => 'Komik Barat',
+                'slug'        => 'komik-barat',
+                'image'       => 'categories/komik-barat.jpg',
+                'description' => 'Komik Amerika dan Eropa seperti Batman, Spider Man, dan Avengers.',
+                'is_active'   => true,
             ],
+
+            // EDISI TERBATAS
             [
-                'name' => 'Kesehatan & Kecantikan',
-                'slug' => 'kesehatan-kecantikan',
-                'description' => 'Produk kesehatan, skincare, dan kosmetik',
-                'is_active' => true,
+                'name'        => 'Edisi Terbatas',
+                'slug'        => 'edisi-terbatas',
+                'image'       => 'categories/edisi-terbatas.jpg',
+                'description' => 'Komik edisi terbatas dengan cover eksklusif dan kualitas cetak premium.',
+                'is_active'   => true,
             ],
+
+            // BEST SELLER
             [
-                'name' => 'Rumah Tangga',
-                'slug' => 'rumah-tangga',
-                'description' => 'Peralatan rumah tangga dan dekorasi',
-                'is_active' => true,
+                'name'        => 'Best Seller',
+                'slug'        => 'best-seller',
+                'image'       => 'categories/best-seller.jpg',
+                'description' => 'Kategori untuk komik paling laris, termasuk Lookism & Questism favorit pembaca.',
+                'is_active'   => true,
             ],
         ];
 
@@ -52,6 +76,6 @@ class CategorySeeder extends Seeder
             Category::create($category);
         }
 
-        $this->command->info('✅ Categories seeded successfully!');
+        $this->command->info('Kategori komik berhasil dibuat');
     }
 }

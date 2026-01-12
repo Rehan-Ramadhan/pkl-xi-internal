@@ -23,7 +23,11 @@ FUNGSI: Master layout admin (Sneat Style)
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Baris untuk Favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/Logo-SiKoMart.png') }}">
+    
     <title>@yield('title') - Admin Panel</title>
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,7 +70,11 @@ FUNGSI: Master layout admin (Sneat Style)
                 <div class="app-brand demo">
                     <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
-                            <i class="bx bx-store fs-3"></i>
+                            {{-- Logo SiKoMart untuk Admin Panel --}}
+                            <img src="{{ asset('images/Logo-SiKoMart.png') }}" 
+                                alt="Logo" 
+                                width="35" {{-- Ukuran disesuaikan agar pas di sidebar --}}
+                                style="object-fit: contain;">
                         </span>
                         <span class="app-brand-text demo menu-text fw-bold ms-2">
                             Admin Panel
@@ -107,6 +115,13 @@ FUNGSI: Master layout admin (Sneat Style)
                             <i class="menu-icon bx bx-receipt"></i>
                             <div>Pesanan</div>
                         </a>
+                    </li>
+
+                    <li class="menu-item {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.users.index') }}" class="menu-link">
+                        <i class="menu-icon bx bx-user"></i>
+                        <div>Pengguna</div>
+                    </a>
                     </li>
 
                     <li class="menu-header small text-uppercase">
@@ -195,5 +210,3 @@ FUNGSI: Master layout admin (Sneat Style)
     @stack('scripts')
 </body>
 </html>
-
-{{-- nonaktifkan dulu baris 89-95, 100, 111, dan 145 --}}

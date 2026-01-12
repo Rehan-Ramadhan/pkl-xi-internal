@@ -64,7 +64,7 @@
                     </div>
                 @empty
                     <div class="col-12 text-center py-5">
-                        {{-- <img src="{{ asset('images/empty-state.svg') }}" width="150" class="mb-3 opacity-50"> --}}
+                        <img src="{{ asset('images/empty-state.svg') }}" width="150" class="mb-3 opacity-50">
                         <h5>Produk tidak ditemukan</h5>
                         <p class="text-muted">Coba kurangi filter atau gunakan kata kunci lain.</p>
                     </div>
@@ -78,5 +78,3 @@
     </div>
 </div>
 @endsection
-
-{{-- nonaktifkan dulu sementara baris 67 --}}

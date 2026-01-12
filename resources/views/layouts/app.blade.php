@@ -28,7 +28,9 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     {{-- Assets dari Vite --}}
     {{-- app.scss: Bootstrap + custom CSS --}}
     {{-- app.js : Bootstrap JS + custom JS --}}
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+    {{-- Baris untuk Favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/Logo-SiKoMart.png') }}">
 
     {{-- CSS tambahan per halaman --}}
     @stack('styles')
@@ -111,6 +113,7 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     NAVBAR
     =============================================================== --}}
     @include('partials.navbar')
+    
 
     {{-- ===============================================================
     FLASH MESSAGE

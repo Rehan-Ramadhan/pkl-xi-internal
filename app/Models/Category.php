@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,8 +52,8 @@ class Category extends Model
     public function activeProducts(): HasMany
     {
         return $this->hasMany(Product::class)
-                    ->where('is_active', true)
-                    ->where('stock', '>', 0);
+            ->where('is_active', true)
+            ->where('stock', '>', 0);
     }
 
     // ==================== SCOPES ====================
@@ -90,12 +89,18 @@ class Category extends Model
      */
     public function getImageUrlAttribute(): string
     {
-        if ($this->image) {
-            // Jika ada gambar, generate full URL ke storage
+        if (! $this->image) {
+            return asset('images/Logo-SiKoMart.png');
+        }
+
+        // Jika di database mengandung kata 'categories/' (berarti hasil upload web)
+        if (str_contains($this->image, 'categories/')) {
             return asset('storage/' . $this->image);
         }
-        // Jika tidak, tampilkan placeholder
-        return asset('images/placeholder-category.jpg');
+
+        // Jika hanya nama file pendek (berarti dari seeder)
+        // Pastikan file gambarnya kamu taruh di public/images/categories/
+        return asset('images/categories/' . $this->image);
     }
 
     /**

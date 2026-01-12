@@ -8,7 +8,7 @@
 
         {{-- Revenue Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 border- h-100">
+            <div class="card border-0 shadow-sm border-start border-4 h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -18,7 +18,7 @@
                             </h4>
                         </div>
                         <div class="bg-success bg-opacity-10 p-3 rounded">
-                            <i class="bi bi-wallet2 text-dark fs-3"></i>
+                            <i class="bi bi-wallet2 text-white fs-3"></i>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
 
         {{-- Pending Action Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 border- h-100">
+            <div class="card border-0 shadow-sm border-start border-4 h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -37,7 +37,7 @@
                             </h4>
                         </div>
                         <div class="bg-warning bg-opacity-10 p-3 rounded">
-                            <i class="bi bi-box-seam text-dark fs-3"></i>
+                            <i class="bi bi-box-seam text-white fs-3"></i>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
         {{-- Low Stock Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 border- h-100">
+            <div class="card border-0 shadow-sm border-start border-4 h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -56,7 +56,7 @@
                             </h4>
                         </div>
                         <div class="bg-danger bg-opacity-10 p-3 rounded">
-                            <i class="bi bi-exclamation-triangle text-dark fs-3"></i>
+                            <i class="bi bi-exclamation-triangle text-white fs-3"></i>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
 
         {{-- Total Products --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 border- h-100">
+            <div class="card border-0 shadow-sm border-start border-4 h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -75,7 +75,7 @@
                             </h4>
                         </div>
                         <div class="bg-primary bg-opacity-10 p-3 rounded">
-                            <i class="bi bi-tags text-dark fs-3"></i>
+                            <i class="bi bi-tags text-white fs-3"></i>
                         </div>
                     </div>
                 </div>

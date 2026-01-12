@@ -1,5 +1,4 @@
 <?php
-// database/migrations/xxxx_create_products_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,13 +16,19 @@ return new class extends Migration
             // constrained() otomatis mencari tabel 'categories' dan kolom 'id'
             // cascadeOnDelete() ARTI PENTING: Jika kategori dihapus, SEMUA produknya ikut terhapus otomatis!
             $table->foreignId('category_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             // INFORMASI DASAR
             $table->string('name');
             $table->string('slug')->unique(); // Slug wajib valid URL dan unik
             $table->text('description')->nullable();
+
+            // GAMBAR PRODUK
+            // Menyimpan nama file gambar cover komik
+            // Contoh: one-piece-1.jpg
+            // File akan disimpan di: public/storage/products/
+            $table->string('image')->nullable();
 
             // HARGA (PENTING!)
             // MENGAPA DECIMAL? Bukan Float?
@@ -42,8 +47,8 @@ return new class extends Migration
             // Disimpan dalam gram (integer). 1 kg = 1000.
             $table->integer('weight')->default(0)->comment('dalam gram');
 
-            // STATUS VISIBILITAS
-            $table->boolean('is_active')->default(true);   // true = tampil di katalog
+                                                            // STATUS VISIBILITAS
+            $table->boolean('is_active')->default(true);    // true = tampil di katalog
             $table->boolean('is_featured')->default(false); // true = tampil di carousel/highlight
 
             $table->timestamps(); // created_at & updated_at

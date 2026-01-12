@@ -5,9 +5,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
-        <a class="navbar-brand text-primary" href="{{ route('home') }}">
-            <i class="bi bi-bag-heart-fill me-2"></i>
-            SiKomart
+        <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="{{ route('home') }}">
+            {{-- Foto Logo Versi Kecil --}}
+            <img src="{{ asset('images/Logo-SiKoMart.png') }}" 
+                 alt="Logo SiKoMart" 
+                 width="40" {{-- Saya naikkan sedikit ke 40 agar lebih jelas --}}
+                 class="me-2"
+                 style="object-fit: contain;">
+            SiKoMart
         </a>
 
         {{-- Mobile Toggle --}}
