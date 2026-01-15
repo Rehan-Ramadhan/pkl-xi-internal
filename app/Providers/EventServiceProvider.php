@@ -12,6 +12,9 @@ class EventServiceProvider extends ServiceProvider
         Login::class => [
             MergeCartListener::class,
         ],
+        \App\Events\OrderPaidEvent::class => [
+            \App\Listeners\SendOrderPaidEmail::class,
+        ],
     ];
 
     public function boot(): void

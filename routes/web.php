@@ -147,3 +147,10 @@ Route::middleware(['auth', 'admin'])
         Route::get('/reports/sales', [ReportController::class, 'sales'])->name('reports.sales');
         Route::get('reports/export-sales', [ReportController::class, 'exportSales'])->name('reports.export-sales');
     });
+
+    Route::get('/test-mail', function () {
+    Mail::raw('Halo Mailtrap, masuk gak?', function ($message) {
+        $message->to('test@example.com')->subject('Tes Pembayaran');
+    });
+    return 'Cek Mailtrap sekarang!';
+});

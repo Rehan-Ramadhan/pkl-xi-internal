@@ -65,10 +65,17 @@ class MidtransNotificationController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
 
-        // 6. IDEMPOTENCY CHECK & CONCURRENCY
-        if (in_array($order->status, ['processing', 'shipped', 'delivered', 'cancelled'])) {
-            Log::info("Midtrans Notification: Order already processed", ['order_id' => $orderId]);
+        // 6. IDEMPOTENCY CHECK
+         // Izinkan status 'processing' lewat agar handleSuccess() bisa dipanggil & kirim email.
+        if (in_array($order->status, ['shipped', 'delivered', 'cancelled'])) {
+            Log::info("Midtrans Notification: Order in final stage", ['order_id' => $orderId]);
             return response()->json(['message' => 'Order already processed'], 200);
+        }
+
+        // Tambahan: Jika payment record sudah sukses, baru kita stop (agar tidak kirim email double).
+        if ($order->payment && $order->payment->status === 'success') {
+            Log::info("Midtrans Notification: Payment already success", ['order_id' => $orderId]);
+            return response()->json(['message' => 'Payment already success'], 200);
         }
 
         // 7. Update Data Tambahan di Payment Record
@@ -145,6 +152,7 @@ class MidtransNotificationController extends Controller
         }
 
         // TODO: Kirim email konfirmasi pembayaran
+        event(new OrderPaidEvent($order));
     }
 
     /**
@@ -198,13 +206,5 @@ class MidtransNotificationController extends Controller
         }
 
         // TODO: Logic tambahan untuk refund
-    }
-
-    private function setSuccess(Order $order)
-    {
-        $order->update(['status' => 'success']);
-
-        // Fire & Forget
-        event(new OrderPaidEvent($order));
     }
 }

@@ -11,18 +11,18 @@ FUNGSI: Komponen kartu produk yang reusable
         </a>
 
         {{-- Badge Diskon --}}
-        @if($product->has_discount)
-            <span class="badge-discount">
-                -{{ $product->discount_percentage }}%
+        @if($product->discount_price && $product->discount_price < $product->price)
+            <span class="badge-discount" style="position: absolute; top: 10px; left: 10px; background-color: red; color: white; padding: 5px; border-radius: 5px; font-weight: bold; z-index: 1;">
+                -{{ round((($product->price - $product->discount_price) / $product->price) * 100) }}%
             </span>
         @endif
 
         {{-- Wishlist Button --}}
         @auth
             <button onclick="toggleWishlist({{ $product->id }})"
-                class="wishlist-btn-{{ $product->id }} btn btn-light btn-sm rounded-circle p-2 transition">
-                <i
-                    class="bi {{ Auth::check() && Auth::user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart text-secondary' }} fs-5"></i>
+                {{-- Pastikan ada class wishlist-btn-ID --}}
+                class="wishlist-btn-{{ $product->id }} btn btn-light btn-sm rounded-circle p-2 transition shadow-sm">
+                <i class="bi {{ Auth::user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart text-secondary' }} fs-5"></i>
             </button>
         @endauth
     </div>

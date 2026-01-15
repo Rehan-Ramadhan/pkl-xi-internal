@@ -29,6 +29,7 @@ FUNGSI: Master layout utama (dipakai semua halaman)
     {{-- app.scss: Bootstrap + custom CSS --}}
     {{-- app.js : Bootstrap JS + custom JS --}}
     @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+    
     {{-- Baris untuk Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('images/Logo-SiKoMart.png') }}">
 

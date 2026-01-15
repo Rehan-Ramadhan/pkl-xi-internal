@@ -5,13 +5,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
-        <a class="navbar-brand text-primary fw-bold d-flex align-items-center" href="{{ route('home') }}">
-            {{-- Foto Logo Versi Kecil --}}
-            <img src="{{ asset('images/Logo-SiKoMart.png') }}" 
-                 alt="Logo SiKoMart" 
-                 width="40" {{-- Saya naikkan sedikit ke 40 agar lebih jelas --}}
-                 class="me-2"
-                 style="object-fit: contain;">
+        <a class="navbar-brand d-flex align-items-center navbar-brand-comic" href="{{ route('home') }}">
+            <img src="{{ asset('images/Logo-SiKoMart.png') }}" alt="Logo SiKoMart" width="40" class="me-2"
+                style="object-fit: contain;">
             SiKoMart
         </a>
 
@@ -25,9 +21,7 @@
         {{-- Navbar Content --}}
         <div class="collapse navbar-collapse" id="navbarMain">
             {{-- Search Form --}}
-            <form {{-- class="d-flex mx-auto" style="max-width: 400px; width: 100%;" --}}
-                  class="d-flex mx-auto flex-grow-1"
-                  action="{{ route('catalog.index') }}" method="GET">
+            <form class="d-flex mx-auto" style="max-width: 600px; width: 100%;" action="{{ route('catalog.index') }}" method="GET">
                 <div class="input-group">
                     <input type="text" name="q"
                            class="form-control"
@@ -53,11 +47,12 @@
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="{{ route('wishlist.index') }}">
                             <i class="bi bi-heart"></i>
-                            @if(auth()->user()->wishlists()->count() > 0)
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
-                                    {{ auth()->user()->wishlists()->count() }}
-                                </span>
-                            @endif
+                            {{-- Tambahkan ID wishlist-count --}}
+                            <span id="wishlist-count" 
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                                style="font-size: 0.6rem; {{ auth()->check() && auth()->user()->wishlists()->count() > 0 ? '' : 'display: none;' }}">
+                                {{ auth()->check() ? auth()->user()->wishlists()->count() : 0 }}
+                            </span>
                         </a>
                     </li>
 

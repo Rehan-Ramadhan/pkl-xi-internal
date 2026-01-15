@@ -8,11 +8,12 @@
 
         {{-- Revenue Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 h-10">
+            <div class="card shadow-sm border-start h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <p class="text-muted text-uppercase fw-semibold mb-1" style="font-size: 0.8rem">Total Pendapatan</p>
+                            <p class="text-muted text-uppercase fw-semibold mb-1" style="font-size: 0.8rem">Total Pendapatan
+                            </p>
                             <h4 class="fw-bold mb-0 text-success">
                                 Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}
                             </h4>
@@ -27,11 +28,12 @@
 
         {{-- Pending Action Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 h-100">
+            <div class="card shadow-sm border-start h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <p class="text-muted text-uppercase fw-semibold mb-1" style="font-size: 0.8rem">Perlu Diproses</p>
+                            <p class="text-muted text-uppercase fw-semibold mb-1" style="font-size: 0.8rem">Perlu Diproses
+                            </p>
                             <h4 class="fw-bold mb-0 text-warning">
                                 {{ $stats['pending_orders'] }}
                             </h4>
@@ -46,7 +48,7 @@
 
         {{-- Low Stock Card --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 h-10">
+            <div class="card shadow-sm border-start h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -65,7 +67,7 @@
 
         {{-- Total Products --}}
         <div class="col-sm-6 col-xl-3">
-            <div class="card border-0 shadow-sm border-start border-4 h-10">
+            <div class="card shadow-sm border-start h-10">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
@@ -86,7 +88,7 @@
     <div class="row g-4">
         {{-- 2. Revenue Chart --}}
         <div class="col-lg-8">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white py-3">
                     <h5 class="card-title mb-0">Grafik Penjualan (7 Hari)</h5>
                 </div>
@@ -98,7 +100,7 @@
 
         {{-- 3. Recent Orders --}}
         <div class="col-lg-4">
-            <div class="card border-0 shadow-sm h-100">
+            <div class="card shadow-sm h-100">
                 <div class="card-header bg-white py-3">
                     <h5 class="card-title mb-0">Pesanan Terbaru</h5>
                 </div>
@@ -112,8 +114,9 @@
                                 </div>
                                 <div class="text-end">
                                     <div class="fw-bold">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</div>
-                                    <span class="badge rounded-pill
-                                        {{ $order->payment_status == 'paid' ? 'bg-success bg-opacity-10 text' : 'bg-secondary bg-opacity-10 text' }}">
+                                    <span
+                                        class="badge rounded-pill
+                                                                                        {{ $order->payment_status == 'paid' ? 'bg-success bg-opacity-10 text' : 'bg-secondary bg-opacity-10 text' }}">
                                         {{ ucfirst($order->status) }}
                                     </span>
                                 </div>
@@ -131,7 +134,7 @@
     </div>
 
     {{-- 4. Top Selling Products --}}
-    <div class="card border-0 shadow-sm mt-4">
+    <div class="card shadow-sm mt-4">
         <div class="card-header bg-white py-3">
             <h5 class="card-title mb-0">Produk Terlaris</h5>
         </div>
@@ -139,8 +142,9 @@
             <div class="row g-4">
                 @foreach($topProducts as $product)
                     <div class="col-6 col-md-2 text-center">
-                        <div class="card h-100 border-0 hover-shadow transition">
-                            <img src="{{ $product->image_url }}" class="card-img-top rounded mb-2" style="max-height: 100px; object-fit: cover;">
+                        <div class="card h-100 hover-shadow transition">
+                            <img src="{{ $product->image_url }}" class="card-img-top rounded mb-2"
+                                style="max-height: 100px; object-fit: cover;">
                             <h6 class="card-title text-truncate" style="font-size: 0.9rem">{{ $product->name }}</h6>
                             <small class="text-muted">{{ $product->sold }} terjual</small>
                         </div>
@@ -153,57 +157,53 @@
     {{-- Script Chart.js --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx = document.getElementById('revenueChart').getContext('2d');
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Ambil data dari Controller
+            const revenueData = {!! json_encode($revenueChart) !!};
 
-        // Data dari Controller (Blade to JS)
-        const labels = {!! json_encode($revenueChart->pluck('date')) !!};
-        const data = {!! json_encode($revenueChart->pluck('total')) !!};
+            // 2. Map data untuk label (tanggal) dan data (nominal)
+            const labels = revenueData.map(item => item.date);
+            const data = revenueData.map(item => item.total);
 
-        new Chart(ctx, {
-            type: 'line', // Jenis grafik: Line chart
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Pendapatan (Rp)',
-                    data: data,
-                    borderColor: '#0d6efd', // Bootstrap Primary Color
-                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
-                    borderWidth: 2,
-                    tension: 0.3, // Membuat garis sedikit melengkung (smooth)
-                    fill: true,
-                    pointRadius: 4,
-                    pointHoverRadius: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false, // Penting agar Chart menyesuaikan container
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                // Format Tooltip jadi Rupiah
-                                return 'Rp ' + new Intl.NumberFormat('id-ID').format(context.raw);
-                            }
-                        }
-                    }
+            const canvas = document.getElementById('revenueChart');
+            if (!canvas) return; // Pastikan canvas ada
+
+            const ctx = canvas.getContext('2d');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Pendapatan (Rp)',
+                        data: data,
+                        borderColor: '#0d6efd', // Warna Biru
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#0d6efd'
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { borderDash: [2, 4] },
-                        ticks: {
-                            callback: function(value) {
-                                return 'Rp ' + new Intl.NumberFormat('id-ID', { notation: "compact" }).format(value);
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    return 'Rp ' + new Intl.NumberFormat('id-ID').format(value);
+                                }
                             }
                         }
                     },
-                    x: {
-                        grid: { display: false }
+                    plugins: {
+                        legend: { display: false }
                     }
                 }
-            }
+            });
         });
     </script>
 @endsection

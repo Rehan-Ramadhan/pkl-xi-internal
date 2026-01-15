@@ -7,41 +7,41 @@ FUNGSI: Halaman utama website
 @section('title', 'Beranda')
 
 @section('content')
-{{-- Hero Section --}}
-<section class="bg-primary text-white py-4 hero-comic-panel m-0">
-    <div class="container py-lg-4">
-        <div class="row align-items-center">
-            <div class="col-lg-6 text-center text-lg-start">
-                <span class="badge bg-warning text-dark mb-3 comic-badge px-3 py-2">
-                    #1 TOKO KOMIK TERPERCAYA
-                </span>
-                <h1 class="display-4 fw-bold mb-3 comic-title">
-                    Markas Komik <br> Terlengkap & Original
-                </h1>
-                <p class="lead mb-4 fw-medium" style="opacity: 0.9; font-size: 1rem;">
-                    Lengkapi koleksi <span class="text-warning fw-bold">Manhwa, Manga</span>. 
-                    Aman, cepat, dan pastinya berkelas di SiKoMart.
-                </p>
-                <a href="{{ route('catalog.index') }}" class="btn btn-light btn-lg btn-comic px-5">
-                    <i class="bi bi-bag-fill me-2"></i>Mulai Belanja
-                </a>
-            </div>
+    {{-- Hero Section --}}
+    <section class="bg-primary text-white  hero-comic-panel m-0">
+        <div class="container ">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-center text-lg-start">
+                    <span class="badge bg-warning text-dark mb-3 comic-badge px-3 py-2">
+                        #1 TOKO KOMIK TERPERCAYA
+                    </span>
+                    <h1 class="display-4 fw-bold mb-3 comic-title">
+                        Markas Komik <br> Terlengkap & Original
+                    </h1>
+                    <p class="lead mb-4 fw-medium" style="opacity: 0.9; font-size: 1rem;">
+                        Lengkapi koleksi <span class="text-warning fw-bold">Manhwa, Manga</span>.
+                        Aman, cepat, dan pastinya berkelas di SiKoMart.
+                    </p>
+                    <a href="{{ route('catalog.index') }}" class="btn btn-light btn-lg btn-comic px-5">
+                        <i class="bi bi-bag-fill me-2"></i>Mulai Belanja
+                    </a>
+                </div>
 
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="promo-stack">
-                    {{-- Gambar belakang --}}
-                    <a href="{{ route('catalog.index', ['on_sale' => 1]) }}">
-                        <img src="{{ asset('images/promo2.jpg') }}" class="img-fluid img-back bg-white p-1">
-                    </a>
-                    {{-- Gambar depan --}}
-                    <a href="{{ route('catalog.index', ['on_sale' => 1]) }}">
-                        <img src="{{ asset('images/promo.png') }}" class="img-fluid img-front bg-white p-1">
-                    </a>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="promo-stack">
+                        {{-- Gambar belakang --}}
+                        <a href="{{ route('catalog.index', ['on_sale' => 1]) }}">
+                            <img src="{{ asset('images/promo2.jpg') }}" class="img-fluid img-back bg-white p-1">
+                        </a>
+                        {{-- Gambar depan --}}
+                        <a href="{{ route('catalog.index', ['on_sale' => 1]) }}">
+                            <img src="{{ asset('images/promo.png') }}" class="img-fluid img-front bg-white p-1">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     {{-- Kategori Populer--}}
     <section class="py-5">

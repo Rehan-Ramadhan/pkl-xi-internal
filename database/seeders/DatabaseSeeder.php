@@ -13,24 +13,20 @@ class DatabaseSeeder extends Seeder
         // 1. Buat admin user
         User::factory()->create([
             'name'              => 'Administrator',
-            'email'             => 'admin@example.com',
+            'email'             => 'admin@sikomart.com',
             'role'              => 'admin',
             'email_verified_at' => now(),
         ]);
-        $this->command->info('Admin user created: admin@example.com');
+        $this->command->info('Admin user created: admin@sikomart.com');
 
-        // 2. Buat beberapa customer
-        User::factory(10)->create(['role' => 'customer']);
-        $this->command->info('10 customer users created');
-
-        // 3. Seed kategori KOMIK
+        // 2. Seed kategori komik
         $this->call(CategorySeeder::class);
 
-        // 4. Seed produk KOMIK (MANUAL, BUKAN RANDOM)
+        // 3. Seed produk komik
         $this->call(ProductSeeder::class);
 
         $this->command->newLine();
         $this->command->info('Database seeding completed!');
-        $this->command->info('Admin login: admin@example.com / password');
+        $this->command->info('Admin login: admin@sikomart.com / password');
     }
 }

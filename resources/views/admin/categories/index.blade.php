@@ -129,7 +129,7 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label class="form-label">Nama Kategori <span class="text-danger">*</span></label>
-                    <input type="text" name="name" class="form-control" required placeholder="Misal: Elektronik">
+                    <input type="text" name="name" class="form-control" required placeholder="Misal: Romance">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Gambar Cover</label>

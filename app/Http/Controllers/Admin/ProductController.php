@@ -48,7 +48,7 @@ class ProductController extends Controller
         // HANYA kategori yang aktif yang boleh dipilih.
         $categories = Category::active()->orderBy('name')->get();
 
-        return view('admin.products.create', compact('categories'));
+        return view('admin.products.index', compact('categories'));
     }
 
     /**
@@ -100,13 +100,13 @@ class ProductController extends Controller
     /**
      * Menampilkan detail produk.
      */
-    public function show(Product $product): View
-    {
-        // Load semua relasi yang dibutuhkan untuk halaman detail.
-        $product->load(['category', 'images', 'orderItems']);
+    // public function show(Product $product): View
+    // {
+    //     // Load semua relasi yang dibutuhkan untuk halaman detail.
+    //     $product->load(['category', 'images', 'orderItems']);
 
-        return view('admin.products.show', compact('product'));
-    }
+    //     return view('admin.products.show', compact('product'));
+    // }
 
     /**
      * Menampilkan form edit produk.
@@ -117,7 +117,7 @@ class ProductController extends Controller
         // Load gambar yang sudah ada agar bisa ditampilkan/dihapus di form edit.
         $product->load('images');
 
-        return view('admin.products.edit', compact('product', 'categories'));
+        return view('admin.products.index', compact('product', 'categories'));
     }
 
     /**
@@ -129,36 +129,26 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
 
-            // 1. Update data dasar produk
+            // Mengambil data yang sudah lolos validasi di UpdateProductRequest
             $product->update($request->validated());
 
-            // 2. Upload gambar BARU (jika user menambah gambar)
+            // Logika Ganti Gambar
             if ($request->hasFile('images')) {
+                foreach ($product->images as $oldImage) {
+                    Storage::disk('public')->delete($oldImage->image_path);
+                    $oldImage->delete();
+                }
                 $this->uploadImages($request->file('images'), $product);
             }
 
-            // 3. Hapus gambar LAMA (yang dicentang user untuk dihapus)
-            if ($request->has('delete_images')) {
-                $this->deleteImages($request->delete_images);
-            }
-
-            // 4. Set gambar Utama (Primary Image)
-            // Jika user memilih gambar tertentu jadi thumbnail baru.
-            if ($request->has('primary_image')) {
-                $this->setPrimaryImage($product, $request->primary_image);
-            }
-
             DB::commit();
-
-            return redirect()
-                ->route('admin.products.index')
-                ->with('success', 'Produk berhasil diperbarui!');
+            return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui!');
 
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withInput()->with('error', 'Gagal update: ' . $e->getMessage());
         }
-    }
+    } 
 
     /**
      * Menghapus produk.

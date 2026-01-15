@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -60,17 +59,32 @@ class DashboardController extends Controller
             ->get();
 
         // 4. Data Grafik Pendapatan (7 Hari Terakhir)
-        // Kasus: Grouping data per tanggal
-        // Kita gunakan DB::raw untuk format tanggal dari timestamp 'created_at'
-        $revenueChart = Order::select([
-            DB::raw('DATE(created_at) as date'),   // Ambil tanggalnya saja (2024-12-10)
-            DB::raw('SUM(total_amount) as total'), // Total omset hari itu
+        // Membuat rentang 7 hari terakhir agar grafik tidak kosong di hari tanpa penjualan
+        $days = collect();
+        for ($i = 6; $i >= 0; $i--) {
+            $days->put(now()->subDays($i)->format('Y-m-d'), 0);
+        }
+
+        // Ambil data penjualan dari database
+        $actualData = Order::select([
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('SUM(total_amount) as total'),
         ])
-            ->where('payment_status', 'paid')
-            ->where('created_at', '>=', now()->subDays(7)) // Filter 7 hari ke belakang
-            ->groupBy('date')                              // Kelompokkan baris berdasarkan tanggal
-            ->orderBy('date', 'asc')                       // Urutkan kronologis
-            ->get();
+            ->whereIn('status', ['processing', 'completed'])
+            ->where('created_at', '>=', now()->subDays(6))
+            ->groupBy('date')
+            ->get()
+            ->pluck('total', 'date');
+
+        // Gabungkan hari kosong dengan data asli
+        $revenueChart = $days->merge($actualData)->map(function ($total, $date) {
+            return [
+                'date'  => $date,
+                'total' => $total,
+            ];
+        })->values();
+
+        return view('admin.dashboard', compact('stats', 'recentOrders', 'topProducts', 'revenueChart'));
 
         return view('admin.dashboard', compact('stats', 'recentOrders', 'topProducts', 'revenueChart'));
     }

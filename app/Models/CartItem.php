@@ -24,8 +24,9 @@ class CartItem extends Model
     }
 
     // Hitung subtotal item
+    // Hitung subtotal item
     public function getSubtotalAttribute()
     {
-        return $this->quantity * $this->product->price;
+        return $this->quantity * $this->product->display_price;
     }
 }
