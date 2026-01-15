@@ -25,3 +25,4 @@ Thumbs.db
 composer.lock
 package-lock.json
 /book/
+database/seeders/DatabaseSeeder.php
